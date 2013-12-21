@@ -1,0 +1,50 @@
+<% @title="Photos by "+@usernameString %>
+<h2>List of All Photos by <%= @usernameString %></h2>
+<hr/>
+
+<% if session[:userid] != nil %>
+	<p><%= link_to("Upload a Photo",url_for(:controller=>'photos',:action=>'new')) %></p>
+<% end %>
+
+<% @userPhotoArray.each do |photo|%>
+	<div>
+		<span class = "image">
+			<img class="imageLeft" src="/images/<%=photo.file_name%>" alt="image"></img>	
+		</span>
+		
+		<table class = "commentTable">
+			<tr><th class = "newComment"><%= link_to("Show Tags",url_for(:controller=>'tags',:action=>'show',:id=>photo.id)) %></th>
+			</tr>
+			
+			<% if session[:userid] != nil %>
+				<tr><th class = "newComment"><%= link_to("Create Tags",url_for(:controller=>'tags',:action=>'new',:id=>photo.id)) %></th>
+				</tr>
+				<tr><th class="newComment"><%= link_to("New Comment",url_for(:controller=>'comments',:action=>'new',:id=>photo.id)) %></th>
+				</tr>
+			<% end %>
+				<tr><th>Photo Creation Time: <%=photo.date_time%></th></tr>
+				<tr>
+					<td class="underline_italics">Comments:</td>
+				</tr>			
+				<% commentArray = photo.comments()%>
+				<% commentArray.each do |comment| %>
+					<% userID=comment.user_id %>
+					<% user = User.find(userID) %>
+					<% username = user.first_name + " " + user.last_name %>
+					<tr>
+						<td>
+							<a href = "/photos/index/<%=user.id %>"><%= user.first_name + " " + user.last_name %></a> 
+							<%= comment.date_time %>
+							<div class="comment"><%= comment.comment %></div>
+						</td>
+					</tr>
+					
+				<% end %>
+		</table>
+		
+	</div>
+
+
+	
+
+<%end%>

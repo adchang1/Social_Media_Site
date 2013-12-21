@@ -1,0 +1,11 @@
+<% @title="Show Tags" %>
+
+<div class = "grandparent">
+	<div class = "TagImage" id="showTagDiv">
+		<img class="imageLeft" src="/images/<%=@photoObject.file_name%>" alt="image"></img>
+		<% @tagArray.each do |t| %>
+			<div class = "rect" title="<%=t.user.first_name%> <%=t.user.last_name%>" style="height:<%=t.height%>px; width:<%=t.width%>px;  top:<%=t.startY%>px; left:<%=t.startX%>px;"></div>
+		<%end%>
+	</div>
+	<p class="identity">Names: <span id="names"></span></p>
+</div>

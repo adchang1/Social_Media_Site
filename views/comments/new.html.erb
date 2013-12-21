@@ -1,0 +1,32 @@
+<% @title="Add Comment" %>
+
+<p class = "image">
+			<img class="imageLeft" src="/images/<%=@photoObject.file_name%>" alt="image"></img>
+</p>
+
+
+<% creationURL = url_for :controller => 'comments', :action => 'create', :id => @photoPrimaryKey %>
+
+
+<% if session[:userid] != nil %>
+	<% @comm = Comment.new %>
+	<% if @newComment != nil %>
+		<% @newComment.errors.full_messages.each do |msg| %>
+  			<p><%= msg %></p>
+  		<% end %>
+  	<% end %>
+
+
+
+	<%= form_for(@comm, :url => creationURL) do |form| %>
+		<table class="form">
+		  <tr>
+		    <td><%= form.text_area(:comment) %></td>
+		  </tr>
+		  <tr>
+		    <td><%= form.submit "Submit Comment" %></td>
+		  </tr>
+		</table>
+	<% end %>
+
+<%end%>

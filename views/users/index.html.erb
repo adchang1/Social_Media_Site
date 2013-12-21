@@ -1,0 +1,7 @@
+<% @title="Index of Users" %>
+<h2>List of All Users</h2><p />
+<%@userArray.each do |user|%>
+	<p>
+		<a href = "/photos/index/<%=user.id %>"><%= user.first_name + " " + user.last_name %></a>
+	</p>
+<%end%>

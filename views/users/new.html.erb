@@ -1,0 +1,40 @@
+<% @title="New User Registration" %>
+
+<% creationURL = url_for :controller => 'users', :action => 'create'%>
+<% @user = User.new %>
+<% if @newUser != nil %>
+	<% @newUser.errors.full_messages.each do |msg| %>
+			<p><%= msg %></p>
+	<% end %>
+<% end %>
+<%= form_for(@user, :url => creationURL) do |form| %>
+
+	<table class="form">
+	  <tr>
+	    <td class="label"><%= form.label(:first_name, "First Name:")%></td>
+	    <td><%= form.text_field(:first_name) %></td>
+	  </tr>
+	  <tr>
+	    <td class="label"><%= form.label(:last_name, "Last Name:")%></td>
+	    <td><%= form.text_field(:last_name) %></td>
+	  </tr>
+	  <tr>
+	    <td class="label"><%= form.label(:login, "Login Name:")%></td>
+	    <td><%= form.text_field(:login) %></td>
+	  </tr>
+	  <tr>
+	    <td class="label"><%= form.label(:password, "Password:")%></td>
+	    <td><%= form.password_field(:password) %></td>
+	  </tr>
+	  <tr>
+	    <td class="label"><%= form.label(:password2, "Retype Password:")%></td>
+	    <td><%= form.password_field(:password2) %></td>
+	  </tr>
+	  <tr>
+	  	<td><%= form.submit "Register" %></td>
+	  	<td></td>
+	  </tr>
+	</table>
+
+    
+<% end %>

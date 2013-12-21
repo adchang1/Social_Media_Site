@@ -1,0 +1,15 @@
+<% @title="Upload Photo" %>
+
+<% creationURL = url_for :controller => 'photos', :action => 'create'%>
+<% if session[:userid] != nil %>
+	<% @phot = Photo.new %>
+	<% if @newPhoto != nil %>
+		<% @newPhoto.errors.full_messages.each do |msg| %>
+  			<p><%= msg %></p>
+  		<% end %>
+  	<% end %>
+	<%= form_for(@phot, :url => creationURL) do |form| %>
+	    <p><%= form.file_field(:picture) %></p>
+	    <p><%= form.submit "Upload Photo" %></p>
+	<% end %>
+<%end%>

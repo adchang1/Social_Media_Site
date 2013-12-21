@@ -1,0 +1,38 @@
+<% @title="Create Tags" %>
+<div class = "grandparent">
+	<div class = "imageParent" id="newTagParentDiv">
+				<img class="imageLeft" src="/images/<%=@photoObject.file_name%>" alt="image"></img>
+				<div class= "tagRect" id="newTagRectDiv"></div>
+	</div>
+	<div class = "tagStuff">
+		<% if session[:userid] != nil %>
+			<% targetURL = url_for :controller => 'tags', :action => 'create', :id=> params[:id]%>
+			Select Person:
+			
+		    <%= form_tag(targetURL, :method => "post") do %>
+		    	<p><select name="personSelect" id="personSelect">
+					<% @personArray.each do |p| %>
+						<option value="<%=p.id%>"><%=p.first_name%> <%=p.last_name%></option>
+					<%end%>
+				</select></p>
+				<p><%= hidden_field_tag(:startX) %></p>
+				<p><%= hidden_field_tag(:startY) %></p>
+				<p><%= hidden_field_tag(:formWidth) %></p>
+				<p><%= hidden_field_tag(:formHeight) %></p>
+
+				<p class = "submit" id="submission"><%= submit_tag('Done Tagging') %></p>
+					
+				
+			<% end %>
+		    
+		    <% if @newTag != nil %>
+				<% @newTag.errors.full_messages.each do |msg| %>
+		  			<p><%= msg %></p>
+		  		<% end %>
+	  		<% end %>
+	  	<%else%>Please login to tag!
+		<%end%>
+
+	</div>
+</div>
+
